@@ -7,6 +7,9 @@ import Particles from './particles';
 import useMouse from '@react-hook/mouse-position';
 
 export default function App() {
+  const zFactor = -0.1;
+  const sizeFactor = 0.7;
+  const scaleFactor = 1.7;
   return (
     <>
       <Mouse />
@@ -25,35 +28,41 @@ export default function App() {
         {/* <Box position={[-1.2, 0, -2]} rotate={-1} /> */}
         {/* <Box position={[1.2, 0, -2]} /> */}
         <Banner
-          position={[0, 0, -0.1 * 4]}
+          position={[0, 0, zFactor * 4]}
           color={[109, 104, 117]}
           count={17}
-          pSize={325}
-          speedFactor={1.8}
+          pSize={325 * sizeFactor}
+          speedFactor={0.1}
           rotation={[0, 0, 0]}
+          spread={0.7}
+          scale={scaleFactor}
         />
         <Banner
-          position={[0, 0, -0.1 * 3]}
+          position={[0, 0, zFactor * 3]}
           color={[255, 180, 162]}
           count={36}
           speedFactor={1}
-          pSize={275}
+          pSize={275 * sizeFactor}
+          spread={0.6}
+          scale={scaleFactor}
         />
         <Banner
-          position={[0, 0, -0.1 * 2]}
+          position={[0, 0, zFactor * 2]}
           color={[229, 152, 155]}
           count={70}
-          pSize={175}
+          pSize={175 * sizeFactor}
           speedFactor={0.4}
-          spread={1.3}
+          spread={0.45}
+          scale={scaleFactor}
         />
         <Banner
-          position={[0, 0, -0.1 * 1]}
+          position={[0, 0, zFactor * 1]}
           color={[181, 131, 141]}
           count={140}
-          pSize={75}
+          pSize={75 * sizeFactor}
           speedFactor={0.1}
-          spread={0.5}
+          spread={0.3}
+          scale={scaleFactor}
         />
       </Canvas>
     </>

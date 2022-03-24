@@ -77,7 +77,7 @@ class Particle {
       THREE.MathUtils.randFloatSpread(1),
       0
     );
-    this.body = Bodies.circle(this.position.x, this.position.y, 1);
+    // this.body = Bodies.circle(this.position.x, this.position.y, 1);
     const velocityMax = 1.3;
     this.velocity = new THREE.Vector3(
       THREE.MathUtils.randFloatSpread(velocityMax),
@@ -121,6 +121,7 @@ void main(){
   // gl_PointSize = uPSize;
   gl_Position = projectionMatrix * mvPosition;
   gl_Position.x = gl_Position.x * 2.;
+  // gl_Position.z = -0.9;
 }
 
 `;
