@@ -1,6 +1,4 @@
-# react-dynzx7
-
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/react-dynzx7)
+# FBO Blobs
 
 <h1 align="center">
   <br>
@@ -11,3 +9,7 @@
   <br>
   <br>
 </h1>
+
+[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/react-dynzx7)
+
+[View Live <3](https://react-dynzx7.stackblitz.io/)
