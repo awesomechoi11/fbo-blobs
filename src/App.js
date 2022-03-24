@@ -34,8 +34,8 @@ export default function App() {
           pSize={325 * sizeFactor}
           speedFactor={0.1}
           rotation={[0, 0, 0]}
-          spread={0.7}
-          scale={scaleFactor}
+          spread={0.5}
+          scale={scaleFactor * 1.6}
         />
         <Banner
           position={[0, 0, zFactor * 3]}
