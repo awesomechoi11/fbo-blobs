@@ -27,7 +27,7 @@ export default function App() {
         <pointLight position={[10, 10, 10]} />
         {/* <Box position={[-1.2, 0, -2]} rotate={-1} /> */}
         {/* <Box position={[1.2, 0, -2]} /> */}
-        <Banner
+        <Blobie
           position={[0, 0, zFactor * 4]}
           color={[109, 104, 117]}
           count={17}
@@ -37,7 +37,7 @@ export default function App() {
           spread={0.5}
           scale={scaleFactor * 1.6}
         />
-        <Banner
+        <Blobie
           position={[0, 0, zFactor * 3]}
           color={[255, 180, 162]}
           count={36}
@@ -46,7 +46,7 @@ export default function App() {
           spread={0.6}
           scale={scaleFactor}
         />
-        <Banner
+        <Blobie
           position={[0, 0, zFactor * 2]}
           color={[229, 152, 155]}
           count={70}
@@ -55,7 +55,7 @@ export default function App() {
           spread={0.45}
           scale={scaleFactor}
         />
-        <Banner
+        <Blobie
           position={[0, 0, zFactor * 1]}
           color={[181, 131, 141]}
           count={140}
@@ -86,7 +86,7 @@ function Mouse() {
   );
 }
 
-function Banner({
+function Blobie({
   color,
   count = 40,
   pSize,
