@@ -2,15 +2,15 @@ import * as THREE from 'three';
 import { Engine, Bodies, Composite } from 'matter-js';
 export default class Particles {
   constructor(iCount = 10, iRenderer, rest) {
-    Object.assign(this,rest);
-    this.engine = Engine.create();
+    Object.assign(this, rest);
+    // this.engine = Engine.create();
     // create two boxes and a ground
-    var boxA = Bodies.rectangle(400, 200, 80, 80);
-    var boxB = Bodies.rectangle(450, 50, 80, 80);
-    var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+    // var boxA = Bodies.rectangle(400, 200, 80, 80);
+    // var boxB = Bodies.rectangle(450, 50, 80, 80);
+    // var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
 
     // add all of the bodies to the world
-    Composite.add(this.engine.world, [boxA, boxB, ground]);
+    // Composite.add(this.engine.world, [boxA, boxB, ground]);
 
     this.renderer = iRenderer;
     this.count = iCount;
@@ -35,6 +35,7 @@ export default class Particles {
       fragmentShader,
       uniforms: {
         uPSize: new THREE.Uniform(this.pSize),
+        uSpread: new THREE.Uniform(this.spread),
       },
     });
     var particleSystem = new THREE.Points(this.geometry, material);
@@ -45,9 +46,10 @@ export default class Particles {
   }
 
   update(delta) {
-    Engine.update(this.engine, delta);
-    // this.engine.update(delta)
-    this.particles.forEach((particle) => particle.update(delta, this.spread));
+    // Engine.update(this.engine, delta);
+    this.particles.forEach((particle) =>
+      particle.update(delta, this.spread, this.speedFactor)
+    );
     this.geometry.setAttribute(
       'position',
       new THREE.Float32BufferAttribute(this.toArray(), 3)
@@ -94,10 +96,13 @@ class Particle {
     return this.euclideanModulo(shiftedVal, range) - spread;
   }
 
-  update(delta = 0, spread = 1.8) {
-    this.position.addScaledVector(this.velocity, delta);
+  update(delta = 0, spread = 1.8, speedFactor = 1) {
+    this.position.addScaledVector(this.velocity, delta * speedFactor);
     // modulo clamp
-    this.position.set(this.wrap(this.position.x,spread), this.wrap(this.position.y,spread));
+    this.position.set(
+      this.wrap(this.position.x, spread),
+      this.wrap(this.position.y, spread)
+    );
   }
 }
 
@@ -105,12 +110,15 @@ const vertexShader = `
 varying vec2 vUv;
 varying vec3 vPosition;
 uniform float uPSize;
+uniform float uSpread;
+
 void main(){
   vUv = uv;
   vPosition = position;
   vec4 mvPosition = modelViewMatrix * vec4(position,1.);
   // gl_PointSize = 10. * (1. / -mvPosition.z);
-  gl_PointSize = uPSize;
+  gl_PointSize = uPSize * smoothstep(0., 0.1, uSpread - distance(vec2(0.),vPosition.xy) );
+  // gl_PointSize = uPSize;
   gl_Position = projectionMatrix * mvPosition;
   gl_Position.x = gl_Position.x * 2.;
 }

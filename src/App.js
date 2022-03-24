@@ -29,12 +29,14 @@ export default function App() {
           color={[109, 104, 117]}
           count={17}
           pSize={325}
+          speedFactor={1.8}
           rotation={[0, 0, 0]}
         />
         <Banner
           position={[0, 0, -0.1 * 3]}
           color={[255, 180, 162]}
           count={36}
+          speedFactor={1}
           pSize={275}
         />
         <Banner
@@ -42,6 +44,7 @@ export default function App() {
           color={[229, 152, 155]}
           count={70}
           pSize={175}
+          speedFactor={0.4}
           spread={1.3}
         />
         <Banner
@@ -49,6 +52,7 @@ export default function App() {
           color={[181, 131, 141]}
           count={140}
           pSize={75}
+          speedFactor={0.1}
           spread={0.5}
         />
       </Canvas>
@@ -73,13 +77,22 @@ function Mouse() {
   );
 }
 
-function Banner({ color, count = 40, pSize, spread = 1.8, ...props }) {
+function Banner({
+  color,
+  count = 40,
+  pSize,
+  spread = 1.8,
+  speedFactor = 1,
+  ...props
+}) {
   const segments = 1;
   // 128;
   // This reference will give us direct access to the mesh
   const mesh = useRef();
   const { gl } = useThree();
-  const particles = useRef(new Particles(count, gl, { pSize, spread }));
+  const particles = useRef(
+    new Particles(count, gl, { pSize, spread, speedFactor })
+  );
   const uniforms = useRef({
     uResolution: new THREE.Uniform([window.innerWidth, window.innerHeight]),
     uProgress: new THREE.Uniform(0),
