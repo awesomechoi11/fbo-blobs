@@ -12,7 +12,7 @@ export default function App() {
   const scaleFactor = 1.7;
   return (
     <>
-      <Mouse />
+      {/* <Mouse /> */}
       <Canvas
         gl={
           {
